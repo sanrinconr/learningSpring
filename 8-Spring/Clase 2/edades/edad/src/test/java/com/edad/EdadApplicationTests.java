@@ -1,8 +1,13 @@
-package com.metroCuadrado;
+package com.edad;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
-class MetroCuadradoApplicationTests {
+@SpringBootTest
+class EdadApplicationTests {
+
+	@Test
+	void contextLoads() {
+	}
 
 }

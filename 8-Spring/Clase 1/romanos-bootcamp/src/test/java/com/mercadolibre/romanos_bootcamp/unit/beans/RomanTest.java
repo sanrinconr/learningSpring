@@ -1,12 +1,9 @@
 package com.mercadolibre.romanos_bootcamp.unit.beans;
 
-import com.mercadolibre.romanos_bootcamp.beans.RandomSampleBean;
 import com.mercadolibre.romanos_bootcamp.beans.service.RomanConversor.Roman;
-import com.mercadolibre.romanos_bootcamp.dtos.SampleDTO;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class RomanTest {
     @Test
