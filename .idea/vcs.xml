@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="VcsDirectoryMappings">
+    <mapping directory="$PROJECT_DIR$/1-prueba git/prueba-git" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/2-Principios java" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/4-RadixSort" vcs="Git" />
+  </component>
+</project>
