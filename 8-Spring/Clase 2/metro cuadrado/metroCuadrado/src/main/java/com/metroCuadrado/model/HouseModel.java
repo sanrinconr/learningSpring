@@ -3,6 +3,7 @@ package com.metroCuadrado.model;
 import lombok.Getter;
 import lombok.Setter;
 
+import javax.validation.Valid;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import java.util.List;
@@ -14,6 +15,7 @@ public class HouseModel {
     @NotNull(message = "Address is necesary")
     private String address;
     @NotNull(message = "House must be have a room")
+    @Valid
     private List<RoomModel> roomModelList;
 
     public void addRoom(RoomModel roomModel){
