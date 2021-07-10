@@ -1,6 +1,7 @@
 package com.linkTracker.exception.controller;
 
 import com.linkTracker.exception.exception.LinkAlreadyExistsException;
+import com.linkTracker.exception.exception.LinkNotExistException;
 import com.linkTracker.exception.model.ErrorModel;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -27,6 +28,11 @@ public class ApiException {
         return new ResponseEntity<>(errors, HttpStatus.BAD_REQUEST);
     }
 
+    @ExceptionHandler(LinkNotExistException.class)
+    public ResponseEntity<ErrorModel> linkNotExists(LinkNotExistException ex){
+        ErrorModel out = new ErrorModel("Link not exists",ex.getMessage());
+        return new ResponseEntity<>(out, HttpStatus.BAD_REQUEST);
+    }
     @ExceptionHandler(LinkAlreadyExistsException.class)
     public ResponseEntity<ErrorModel> linkAlreadyExists(LinkAlreadyExistsException ex){
         ErrorModel out = new ErrorModel("Link already exists",ex.getMessage());

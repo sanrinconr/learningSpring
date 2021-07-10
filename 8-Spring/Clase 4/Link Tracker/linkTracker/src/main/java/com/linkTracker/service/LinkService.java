@@ -3,6 +3,7 @@ package com.linkTracker.service;
 import com.linkTracker.dto.request.LinkCreateRequestDTO;
 import com.linkTracker.dto.response.LinkCreatedResponseDTO;
 import com.linkTracker.exception.exception.LinkAlreadyExistsException;
+import com.linkTracker.exception.exception.LinkNotExistException;
 import com.linkTracker.model.LinkModel;
 import com.linkTracker.repository.ILinkRepository;
 import org.dozer.DozerBeanMapper;
@@ -22,5 +23,9 @@ public class LinkService implements ILinkService {
         LinkModel linkModel = new LinkModel(data.getName(), data.getUrl(), data.getPassword());
         linkRepository.insertLink(linkModel);
         return mapper.map(linkModel, LinkCreatedResponseDTO.class);
+    }
+    @Override
+    public String getURLById(String id, String password) throws LinkNotExistException {
+        return linkRepository.findLinkById(id,password);
     }
 }
