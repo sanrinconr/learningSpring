@@ -2,6 +2,7 @@ package com.linkTracker.service;
 
 import com.linkTracker.dto.request.LinkCreateRequestDTO;
 import com.linkTracker.dto.response.LinkCreatedResponseDTO;
+import com.linkTracker.dto.response.LinkMetricsResponseDTO;
 import com.linkTracker.exception.exception.LinkAlreadyExistsException;
 import com.linkTracker.exception.exception.LinkNotExistException;
 import com.linkTracker.model.LinkModel;
@@ -27,5 +28,13 @@ public class LinkService implements ILinkService {
     @Override
     public String getURLById(String id, String password) throws LinkNotExistException {
         return linkRepository.findLinkById(id,password);
+    }
+
+    @Override
+    public LinkMetricsResponseDTO getMetricsLink(String linkId) throws LinkNotExistException {
+         LinkModel model = linkRepository.findModelById(linkId);
+         LinkMetricsResponseDTO out = mapper.map(model, LinkMetricsResponseDTO.class);
+         if(out.getPassword() != null) out.setPassword("****");
+         return out ;
     }
 }

@@ -56,6 +56,22 @@ public class LinkRepositoryImp implements ILinkRepository {
         throw new LinkNotExistException("The id " + id + " not exist (you mistake the password?)");
     }
 
+    @Override
+    public LinkModel findModelById(String id) throws LinkNotExistException {
+        List<LinkModel> links = loadDatabase();
+        for (LinkModel model : links) {
+            //If password not exist only validate id
+
+            if (model.getId().equals(id)) {
+                return model;
+            }
+            //Else, find same id and password
+
+
+        }
+        throw new LinkNotExistException("The id " + id + " not exist");
+    }
+
     public boolean linkAlreadyExists(LinkModel linkModel) {
         List<LinkModel> data = loadDatabase();
         if (data.size() == 0) return false;
