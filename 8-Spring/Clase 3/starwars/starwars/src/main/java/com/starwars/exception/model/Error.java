@@ -1,4 +1,4 @@
-package com.starwars.exception;
+package com.starwars.exception.model;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

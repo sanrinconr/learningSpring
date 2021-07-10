@@ -1,5 +1,6 @@
-package com.starwars.exception;
+package com.starwars.exception.controller;
 
+import com.starwars.exception.model.Error;
 import com.starwars.exception.exceptions.ActorNotFoundException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

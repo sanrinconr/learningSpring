@@ -1,0 +1,33 @@
+[ {
+  "name" : "Google",
+  "url" : "http://google.com",
+  "password" : "1234",
+  "timesClicked" : 0,
+  "creationTime" : 1625883788133,
+  "status" : "VALID",
+  "id" : "244f5"
+}, {
+  "name" : "Google",
+  "url" : "http://google.com",
+  "password" : "123477",
+  "timesClicked" : 0,
+  "creationTime" : 1625883795064,
+  "status" : "VALID",
+  "id" : "24e3a"
+}, {
+  "name" : "Google",
+  "url" : "http://google.com",
+  "password" : "1234772",
+  "timesClicked" : 0,
+  "creationTime" : 1625883799158,
+  "status" : "VALID",
+  "id" : "c07c9"
+}, {
+  "name" : "Google",
+  "url" : "http://google.com",
+  "password" : "sca",
+  "timesClicked" : 0,
+  "creationTime" : 1625883981149,
+  "status" : "VALID",
+  "id" : "62b49"
+} ]
