@@ -1,6 +1,5 @@
 package com.linkTracker.controller;
 
-import com.linkTracker.dto.response.LinkCreatedResponseDTO;
 import com.linkTracker.dto.response.LinkMetricsResponseDTO;
 import com.linkTracker.exception.exception.LinkNotExistException;
 import com.linkTracker.service.ILinkService;
@@ -14,7 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping("/metrics")
 public class MetricsController {
-    ILinkService linkService;
+    final ILinkService linkService;
 
     public MetricsController(ILinkService linkService) {
         this.linkService = linkService;

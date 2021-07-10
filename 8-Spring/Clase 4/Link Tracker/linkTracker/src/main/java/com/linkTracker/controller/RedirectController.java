@@ -2,15 +2,13 @@ package com.linkTracker.controller;
 
 import com.linkTracker.exception.exception.LinkNotExistException;
 import com.linkTracker.service.ILinkService;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.view.RedirectView;
 
 @RestControllerAdvice
 @RequestMapping("/link")
 public class RedirectController {
-    ILinkService linkService;
+    final ILinkService linkService;
 
     public RedirectController(ILinkService linkService) {
         this.linkService = linkService;

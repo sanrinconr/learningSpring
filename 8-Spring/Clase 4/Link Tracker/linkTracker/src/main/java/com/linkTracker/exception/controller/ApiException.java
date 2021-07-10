@@ -41,7 +41,7 @@ public class ApiException {
 
     @ExceptionHandler(HttpMessageNotReadableException.class)
     public ResponseEntity<ErrorModel> notBodyProvided(Exception ex){
-        ErrorModel out = new ErrorModel("Hubo un problema en el formato del body",ex.getMessage());
+        ErrorModel out = new ErrorModel("The body entered not have a correct format",ex.getMessage());
         return new ResponseEntity<>(out, HttpStatus.INTERNAL_SERVER_ERROR);
     }
     @ExceptionHandler(Exception.class)

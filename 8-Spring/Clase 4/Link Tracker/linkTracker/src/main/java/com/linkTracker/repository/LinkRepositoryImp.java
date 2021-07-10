@@ -14,6 +14,7 @@ import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Repository
 public class LinkRepositoryImp implements ILinkRepository {
@@ -25,13 +26,19 @@ public class LinkRepositoryImp implements ILinkRepository {
     public void insertLink(LinkModel link) throws LinkAlreadyExistsException {
         List<LinkModel> links = loadDatabase();
         if (linkAlreadyExists(link))
-            throw new LinkAlreadyExistsException("Link with url " + link.getUrl() + " and name " + link.getName() + " already exists");
+            throw new LinkAlreadyExistsException(link.getUrl(), link.getName());
         links.add(link);
         saveDatabase(links);
     }
 
     @Override
-    public void setLinkAsInvalid(LinkModel link) {
+    public void setLinkAsInvalid(LinkModel link) throws LinkNotExistException {
+        List<LinkModel> links = loadDatabase();
+        Optional<LinkModel> candidate = links.stream().filter(x -> x.getId().equals(link.getId())).findAny();
+        if(candidate.isEmpty()) throw new LinkNotExistException(link.getId());
+        LinkModel funded = candidate.get();
+        funded.setStatus("INVALID");
+        this.saveDatabase(links);
     }
 
     @Override
@@ -53,23 +60,18 @@ public class LinkRepositoryImp implements ILinkRepository {
             }
 
         }
-        throw new LinkNotExistException("The id " + id + " not exist (you mistake the password?)");
+        throw new LinkNotExistException(id);
     }
 
     @Override
     public LinkModel findModelById(String id) throws LinkNotExistException {
         List<LinkModel> links = loadDatabase();
         for (LinkModel model : links) {
-            //If password not exist only validate id
-
             if (model.getId().equals(id)) {
                 return model;
             }
-            //Else, find same id and password
-
-
         }
-        throw new LinkNotExistException("The id " + id + " not exist");
+        throw new LinkNotExistException(id);
     }
 
     public boolean linkAlreadyExists(LinkModel linkModel) {
@@ -107,7 +109,7 @@ public class LinkRepositoryImp implements ILinkRepository {
         try {
             actorModels = objectMapper.readValue(file, typeReference);
         } catch (IOException e) {
-            logger.error("Cant read json (probaby is empty) full error: " + e.getMessage());
+            logger.error("Cant read json (probably is empty) full error: " + e.getMessage());
             actorModels = new ArrayList<>();
         }
         return actorModels;
@@ -121,7 +123,7 @@ public class LinkRepositoryImp implements ILinkRepository {
             objectMapper.writerWithDefaultPrettyPrinter().writeValue(file, linkModels);
             logger.info("Models wrote to db!");
         } catch (Exception e) {
-            logger.warn("error occurred when writing to db");
+            logger.warn("Error occurred when writing to db");
             e.printStackTrace();
         }
     }
