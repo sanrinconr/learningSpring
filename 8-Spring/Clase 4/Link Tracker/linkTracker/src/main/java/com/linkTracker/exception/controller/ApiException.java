@@ -31,7 +31,7 @@ public class ApiException {
     @ExceptionHandler(LinkNotExistException.class)
     public ResponseEntity<ErrorModel> linkNotExists(LinkNotExistException ex){
         ErrorModel out = new ErrorModel("Link not exists",ex.getMessage());
-        return new ResponseEntity<>(out, HttpStatus.BAD_REQUEST);
+        return new ResponseEntity<>(out, HttpStatus.NOT_FOUND);
     }
     @ExceptionHandler(LinkAlreadyExistsException.class)
     public ResponseEntity<ErrorModel> linkAlreadyExists(LinkAlreadyExistsException ex){
