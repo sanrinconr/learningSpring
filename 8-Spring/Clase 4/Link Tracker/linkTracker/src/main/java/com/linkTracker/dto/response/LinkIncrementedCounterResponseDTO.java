@@ -5,10 +5,9 @@ import lombok.Setter;
 
 @SuppressWarnings("unused")
 @Getter @Setter
-public class LinkMetricsResponseDTO {
+public class LinkIncrementedCounterResponseDTO {
     private String name;
     private String url;
-    private String password;
     private String linkID;
-    private int timesClicked;
+    private String timesClicked;
 }

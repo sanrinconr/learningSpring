@@ -3,10 +3,8 @@ package com.linkTracker.dto.response;
 import lombok.Getter;
 import lombok.Setter;
 
+@SuppressWarnings("ALL")
 @Getter @Setter
-public class LinkInvalidatedResponseDTO {
-    private String name;
+public class LinkRedirectResponseDTO {
     private String url;
-    private String status;
-    private String linkID;
 }

@@ -17,12 +17,7 @@ public class LinkCreateRequestDTO {
     private String url;
     private String password;
 
-    public LinkCreateRequestDTO(String name, String url, String password) {
-        this.name = name;
-        this.url = url;
-        this.password = password;
-    }
-
+    @SuppressWarnings("unused")
     public LinkCreateRequestDTO(String name, String url) {
         this.name = name;
         this.url = url;

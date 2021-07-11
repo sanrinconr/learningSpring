@@ -1,6 +1,7 @@
 package com.linkTracker.exception.controller;
 
 import com.linkTracker.exception.exception.LinkAlreadyExistsException;
+import com.linkTracker.exception.exception.LinkInvalidException;
 import com.linkTracker.exception.exception.LinkNotExistException;
 import com.linkTracker.exception.model.ErrorModel;
 import org.springframework.http.HttpStatus;
@@ -14,6 +15,7 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import java.util.HashMap;
 import java.util.Map;
 
+@SuppressWarnings("unused")
 @ControllerAdvice
 public class ApiException {
     //https://www.baeldung.com/spring-boot-bean-validation
@@ -36,6 +38,12 @@ public class ApiException {
     @ExceptionHandler(LinkAlreadyExistsException.class)
     public ResponseEntity<ErrorModel> linkAlreadyExists(LinkAlreadyExistsException ex){
         ErrorModel out = new ErrorModel("Link already exists",ex.getMessage());
+        return new ResponseEntity<>(out, HttpStatus.BAD_REQUEST);
+    }
+
+    @ExceptionHandler(LinkInvalidException.class)
+    public ResponseEntity<ErrorModel> linkAlreadyExists(LinkInvalidException ex){
+        ErrorModel out = new ErrorModel("Link is invalid",ex.getMessage());
         return new ResponseEntity<>(out, HttpStatus.BAD_REQUEST);
     }
 

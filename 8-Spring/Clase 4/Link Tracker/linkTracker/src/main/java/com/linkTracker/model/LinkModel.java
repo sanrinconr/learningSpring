@@ -17,7 +17,7 @@ public class LinkModel {
     private int timesClicked;
     private Timestamp creationTime;
     private String status;
-    private String id;
+    private String linkID;
 
     public LinkModel(String name, String url, String password) {
         this.name = name;
@@ -26,7 +26,7 @@ public class LinkModel {
         this.timesClicked = 0;
         this.creationTime = new Timestamp(new Date().getTime());
         this.status = "VALID";
-        this.id = LinkModel.generateID(this.name, this.url,this.password);
+        this.linkID = LinkModel.generateID(this.name, this.url,this.password);
     }
 
     public static String generateID(String name, String url, String password){
@@ -35,5 +35,9 @@ public class LinkModel {
 
        String md5Hex = DigestUtils.md5DigestAsHex(toHash.getBytes()).toLowerCase();
         return md5Hex.substring(0,5);
+    }
+
+    public void incrementTimesClicked(){
+        this.timesClicked+=1;
     }
 }

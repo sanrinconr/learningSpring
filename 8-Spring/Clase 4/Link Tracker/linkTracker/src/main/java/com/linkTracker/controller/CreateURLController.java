@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import javax.validation.Valid;
 
+@SuppressWarnings("unused")
 @RestController
 @RequestMapping("/createURL")
 public class CreateURLController {
