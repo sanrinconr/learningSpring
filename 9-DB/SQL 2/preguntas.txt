@@ -1,0 +1,48 @@
+A qué se denomina JOIN en una base datos?
+
+El join es una herramienta que permite visualizar la relacion entre dos tablas por medio de su union.
+Asi si se tiene una tabla departamento y empleado, utilizando un join se puede ver el nombre del departamento de un empleado o cualquier otro dato necesario
+
+
+
+Nombre y explique 2 tipos de JOIN.
+
+Inner join
+Es el join por defecto y lo que hace es mostrar unicamente  los datos relacionados entre dos tablas
+
+Left join
+Este join devuelve todas las filas de la izquierda y las que esten relacionadas de la derecha
+
+
+
+Para qué se utiliza el GROUP BY?
+
+Como su nombre lo indica, es utilizado para para agrupar datos, como puede ser por ejemplo el total de compras de un usuario, su id aparecera muchas veces por lo que se puede hacer una agrupacion logrando una salida de un unico id, con la respectiva cantidad de compras realizadas por ese usuario.
+
+
+
+Para qué se utiliza el HAVING?
+
+Having es muy similar a un where pero su principal diferencia es que having opera con grupos de datos (grup by), asi una consulta pude tener un where y filtrar los datos individualmente, luego posteriormente agruparlos y volver a filtrar estos grupos con having
+
+
+
+Dado lo siguientes diagramas indique a qué tipo de JOIN corresponde cada uno
+
+Izquierda: un inner join
+Derecha: un left join
+
+
+Escriba una consulta genérica por cada uno de los diagramas a continuación:
+
+select * 
+from table1
+join  table2
+on table1.id = table2.id;
+
+select * 
+from table1 name
+full join  table2
+on table1.id = table2.id;
+
+
