@@ -2,3 +2,6 @@
 **/.class
 out/
 libraries/
+**/db/
+**/.mvn/
+**/.idea/

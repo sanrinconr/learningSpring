@@ -1,0 +1,17 @@
+a. ¿Cuál es la primary key para la tabla empleados? Justificar respuesta
+
+En la tabla empleados se tiene dos opciones, utilizar el dni o el nLegajo.
+
+Yo opte por seleccionar el numero de legajo como primary key ya que es un metodo de identificacion interno por lo que es controlable, por otra parte si se escogiera el dni es perfectamente valido pero si la empresa tiene sucursales en distintos paises, existe una minima (muy minima) de que  dos dni tengan el mismo numero.
+
+b. ¿Cuál es la primary key para la tabla departamentos? Justificar respuesta
+
+Ya que el nombre o la direccion pueden ser facilmente repetibles (varios departamentos pueden estar en la  misma direccion, o multiples oficinas tener el mismo nombre de depertamentos), se opta por utiliar un valor numerico como identificador unico de un departamento.
+
+c. ¿Qué relación/es existiría/n entre las tablas? ¿En qué tabla debería haber foreign key? ¿A
+qué campo de qué tabla hace referencia dicha foreign key? Justificar respuesta
+
+Existe la relacion "un empleado pertenece a un departamento" y su version inversa seria "a un departamento le pertenecen varios empleados" la cual se puede diagramar como "pertenece".
+
+Es una relacion 1:M por lo que la clave foranea tendra que ir al lado M de la relacion,  asi se puede identificar un empleado a que departamento pertenece, de otra manera seria inviable hacer esta identificacion. Ahora, cual sera clave forarena?, el id del departamento, pues con el id, se pueden conocer los campos como nombre y direccion
+
