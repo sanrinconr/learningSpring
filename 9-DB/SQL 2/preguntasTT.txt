@@ -1,0 +1,5 @@
+1. Explique el concepto de normalización y para que se utiliza.
+Se puede considerar como el "perfeccionamiento" de la estructura de una base de datos, se utiliza para evitar la redundancia de datos y lograr una mayor integridad en estos. Tener en cuenta que si se hace una normalizacion implica que el modelo propuesto en un comienzo no era el correcto.
+
+
+

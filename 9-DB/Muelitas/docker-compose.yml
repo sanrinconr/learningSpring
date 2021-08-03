@@ -1,0 +1,47 @@
+version: '3.3'
+services:
+  dbDevelopment:
+    image: mysql:latest
+    restart: always
+    environment:
+      MYSQL_DATABASE: 'ml_app_consultorio'
+      # So you don't have to use root, but you can if you like
+      MYSQL_USER: 'development'
+      # You can use whatever password you like
+      MYSQL_PASSWORD: '12345'
+      # Password for root access
+      MYSQL_ROOT_PASSWORD: 'root'
+    ports:
+      # <Port exposed> : < MySQL Port running inside container>
+      - '3306:3306'
+    expose:
+      # Opens port 3306 on the container
+      - '3306'
+      # Where our data will be persisted
+    volumes:
+      - ./dbDevelopment:/var/lib/mysql
+
+  dbTest:
+    image: mysql:latest
+    restart: always
+    environment:
+      MYSQL_DATABASE: 'ml_app_consultorio'
+      # So you don't have to use root, but you can if you like
+      MYSQL_USER: 'test'
+      # You can use whatever password you like
+      MYSQL_PASSWORD: '12345'
+      # Password for root access
+      MYSQL_ROOT_PASSWORD: 'root'
+    ports:
+      # <Port exposed> : < MySQL Port running inside container>
+      - '3307:3306'
+    expose:
+      # Opens port 3306 on the container
+      - '3306'
+      # Where our data will be persisted
+    volumes:
+      - ./dbTest  :/var/lib/mysql
+# Names our volume
+volumes:
+  dbDevelopment:
+  dbTesting:

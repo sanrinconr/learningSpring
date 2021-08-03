@@ -3,5 +3,8 @@
 out/
 libraries/
 **/db/
+**/dbTest
+**/dbDevelopment
+**/mongodb_master_data
 **/.mvn/
 **/.idea/
