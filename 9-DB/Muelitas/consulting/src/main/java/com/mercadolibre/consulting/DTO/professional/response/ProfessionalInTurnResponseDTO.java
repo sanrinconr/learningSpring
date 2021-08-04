@@ -1,5 +1,6 @@
 package com.mercadolibre.consulting.DTO.professional.response;
 
+import com.mercadolibre.consulting.model.ProfessionalModel;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;

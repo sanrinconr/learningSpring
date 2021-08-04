@@ -33,14 +33,8 @@ public class GetPatientByIdIntegrationTest {
     @Test
     @DisplayName("Integration: Obtain a patient")
     public void getAPatient() throws Exception {
-        CreatePatientDTO data = CreatePatientDTO.builder().name("Juan").last_name("Carlos").build();
-        //Insert patient
-        mockMvc.perform(post("/patient")
-                .contentType(MediaType.APPLICATION_JSON)
-                .content(objectMapper.writeValueAsString(data)))
-                .andExpect(status().isOk());
         //Get that patient
-        PatientResponseDTO expected = PatientResponseDTO.builder().name("Juan").last_name("Carlos").turns(new ArrayList<>()).build();
+        PatientResponseDTO expected = PatientResponseDTO.builder().name("Ana").last_name("Quevedo").build();
         String responseDTO = mockMvc.perform(get("/patient/1"))
                 .andExpect(status().isOk())
                 .andReturn().getResponse().getContentAsString();
@@ -51,8 +45,8 @@ public class GetPatientByIdIntegrationTest {
     @DisplayName("Integration: Obtain a patient")
     public void getUnknownPatient() throws Exception {
         //Get that patient
-        ExceptionMessage expected = new ExceptionMessage("Patient not exists","Patient with id (1) not exists");
-        String responseDTO = mockMvc.perform(get("/patient/1"))
+        ExceptionMessage expected = new ExceptionMessage("Patient not exists","Patient with id (9999) not exists");
+        String responseDTO = mockMvc.perform(get("/patient/9999"))
                 .andExpect(status().isBadRequest())
                 .andReturn().getResponse().getContentAsString();
         Assertions.assertEquals(objectMapper.writeValueAsString(expected), responseDTO);

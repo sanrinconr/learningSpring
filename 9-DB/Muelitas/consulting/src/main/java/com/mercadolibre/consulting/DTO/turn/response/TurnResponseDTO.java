@@ -15,6 +15,6 @@ import java.time.LocalDateTime;
 public class TurnResponseDTO {
     private LocalDateTime f_entry;
     private LocalDateTime f_out;
-    private Boolean attended;
+    private String status;
     private ProfessionalInTurnResponseDTO professional;
 }

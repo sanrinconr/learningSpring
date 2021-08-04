@@ -7,8 +7,9 @@ import java.util.List;
 
 @Entity
 @Table(name = "patients")
-@Data
-@NoArgsConstructor
+@Getter
+@Setter
+@Data@NoArgsConstructor
 @AllArgsConstructor
 @Builder
 public class PatientModel {
@@ -20,6 +21,4 @@ public class PatientModel {
     @Column(nullable = false)
     private String last_name;
 
-    @OneToMany(mappedBy = "patientModel", cascade = CascadeType.ALL)
-    private List<TurnModel> turns;
 }

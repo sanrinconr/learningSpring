@@ -1,5 +1,6 @@
 package com.mercadolibre.consulting.model;
 
+import com.mercadolibre.consulting.enums.TurnStatus;
 import lombok.*;
 import org.hibernate.annotations.ColumnDefault;
 
@@ -8,7 +9,8 @@ import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "turns")
-@Data
+@Getter
+@Setter
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
@@ -20,8 +22,10 @@ public class TurnModel {
     private LocalDateTime f_entry;
     @Column(nullable = false)
     private LocalDateTime f_out;
+    @Enumerated(EnumType.STRING)
     @Column(nullable = false)
-    private Boolean attended;
+    private TurnStatus status;
+
     @ManyToOne
     @JoinColumn(name="id_professional")
     private ProfessionalModel professionalModel;
@@ -29,4 +33,5 @@ public class TurnModel {
     @ManyToOne
     @JoinColumn(name="id_patient")
     private PatientModel patientModel;
+
 }

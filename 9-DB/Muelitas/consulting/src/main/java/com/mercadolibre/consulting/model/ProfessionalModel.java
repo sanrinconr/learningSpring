@@ -1,5 +1,6 @@
 package com.mercadolibre.consulting.model;
 
+import com.mercadolibre.consulting.enums.ProfessionalServices;
 import lombok.*;
 
 import javax.persistence.*;
@@ -7,7 +8,8 @@ import java.util.List;
 
 @Entity
 @Table(name = "professionals")
-@Data
+@Getter
+@Setter
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
@@ -19,9 +21,8 @@ public class ProfessionalModel {
     private String name;
     @Column(nullable = false)
     private String last_name;
+    @Enumerated(EnumType.STRING)
     @Column(nullable = false)
-    private String service;
+    private ProfessionalServices service;
 
-    @OneToMany(mappedBy = "professionalModel",cascade = CascadeType.ALL)
-    private List<TurnModel> turns;
 }

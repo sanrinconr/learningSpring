@@ -1,5 +1,7 @@
 package com.mercadolibre.consulting;
 
+import com.mercadolibre.consulting.enums.ProfessionalServices;
+import com.mercadolibre.consulting.enums.TurnStatus;
 import com.mercadolibre.consulting.model.PatientModel;
 import com.mercadolibre.consulting.model.ProfessionalModel;
 import com.mercadolibre.consulting.model.TurnModel;
@@ -18,6 +20,7 @@ import org.springframework.stereotype.Component;
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.List;
 
 @SpringBootApplication
 public class ConsultingApplication {
@@ -45,7 +48,7 @@ class RunAtStart implements CommandLineRunner {
 	public void run(String... args) {
 		if (SCOPE == null) throw new IllegalArgumentException("${ENVIRONMENT} must be seted");
 		logger.info("ENVIRONMENT: " + SCOPE);
-		if (SCOPE.equals("dev")) {
+		if (SCOPE.equals("dev") || SCOPE.equals("test")) {
 			//Create patients
 			PatientModel pa1 = PatientModel.builder().name("Ana").last_name("Quevedo").build();
 			patientRepository.save(pa1);
@@ -58,17 +61,18 @@ class RunAtStart implements CommandLineRunner {
 
 
 			//Create professional
-			ProfessionalModel pr1 = ProfessionalModel.builder().name("Diana").last_name("Tazares").service("General").build();
+			ProfessionalModel pr1 = ProfessionalModel.builder().name("Diana").last_name("Tazares").service(ProfessionalServices.GENERAL).build();
 			professionalRepository.save(pr1);
 
 			//Create turns
-			TurnModel tr1 = TurnModel.builder().f_entry(LocalDateTime.now()).f_out(LocalDateTime.now().plusMinutes(30)).patientModel(pa1).professionalModel(pr1).attended(false).build();
+			TurnModel tr1 = TurnModel.builder().f_entry(LocalDateTime.now()).f_out(LocalDateTime.now().plusMinutes(30)).patientModel(pa1).professionalModel(pr1).status(TurnStatus.PENDING).build();
 			turnRepository.save(tr1);
 
-			TurnModel tr2 = TurnModel.builder().f_entry(LocalDateTime.now().plusMinutes(30)).f_out(LocalDateTime.now().plusMinutes(60)).patientModel(pa2).professionalModel(pr1).attended(false).build();
+			TurnModel tr2 = TurnModel.builder().f_entry(LocalDateTime.now().plusMinutes(30)).f_out(LocalDateTime.now().plusMinutes(60)).patientModel(pa2).professionalModel(pr1).status(TurnStatus.PENDING).build();
 			turnRepository.save(tr2);
 		}
-
+		/*List<TurnModel> out = turnRepository.findTurnsOfProfessional(1L);
+		System.out.println(out);*/
 	}
 }
 
