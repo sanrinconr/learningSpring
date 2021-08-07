@@ -7,8 +7,7 @@ import lombok.NoArgsConstructor;
 
 @Data
 @NoArgsConstructor
-@AllArgsConstructor
-@Builder
+
 public class ProfessionalInTurnResponseDTO {
     private String name;
     private String last_name;

@@ -10,7 +10,6 @@ import org.springframework.data.mongodb.core.mapping.MongoId;
 @Document(collection = "professionals")
 
 @Getter
-@Setter
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder

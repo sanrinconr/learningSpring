@@ -4,4 +4,5 @@ public enum ProfessionalServices {
     GENERAL,
     PEDIATRIC,
     OPTOMETRIST,
+    NOTUSED
 }

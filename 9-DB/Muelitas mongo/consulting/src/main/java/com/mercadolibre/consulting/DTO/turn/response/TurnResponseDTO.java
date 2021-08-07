@@ -10,8 +10,6 @@ import java.time.LocalDateTime;
 
 @Data
 @NoArgsConstructor
-@AllArgsConstructor
-@Builder
 public class TurnResponseDTO {
     private LocalDateTime f_entry;
     private LocalDateTime f_out;

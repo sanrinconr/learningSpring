@@ -24,8 +24,4 @@ public class PatientController {
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
-    /*@GetMapping("/patient/{id}/turn")
-    public ResponseEntity<PatientResponseDTO> getPatient(@PathVariable String id) throws PatientNotExistsException {
-        return new ResponseEntity<PatientResponseDTO>(patientService.getById((long) Integer.parseInt(id)),HttpStatus.OK);
-    }*/
 }

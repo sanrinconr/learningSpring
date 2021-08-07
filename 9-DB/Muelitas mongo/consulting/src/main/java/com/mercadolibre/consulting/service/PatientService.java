@@ -25,4 +25,12 @@ public class PatientService {
         patientRepository.save(model);
     }
 
+    //Util methods
+
+
+    public PatientModel getPatientById(String id) throws PatientNotExistsException {
+       Optional<PatientModel> model  =  patientRepository.findById(id);
+       if(model.isEmpty()) throw new PatientNotExistsException(id);
+       return model.get();
+    }
 }
