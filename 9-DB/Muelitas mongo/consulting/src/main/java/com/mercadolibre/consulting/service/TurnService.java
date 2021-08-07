@@ -3,21 +3,20 @@ package com.mercadolibre.consulting.service;
 import com.mercadolibre.consulting.DTO.turn.response.TurnResponseDTO;
 import com.mercadolibre.consulting.enums.ProfessionalServices;
 import com.mercadolibre.consulting.enums.TurnStatus;
-import com.mercadolibre.consulting.exception.exception.InvalidProfessionalServiceException;
-import com.mercadolibre.consulting.exception.exception.NoProfessionalFoundException;
-import com.mercadolibre.consulting.exception.exception.NotProfessionalServicePassedException;
-import com.mercadolibre.consulting.exception.exception.PatientNotExistsException;
+import com.mercadolibre.consulting.exception.exception.*;
 import com.mercadolibre.consulting.model.PatientModel;
 import com.mercadolibre.consulting.model.ProfessionalModel;
 import com.mercadolibre.consulting.model.TurnModel;
 import com.mercadolibre.consulting.repository.TurnRepository;
 import com.mercadolibre.consulting.utils.validators.ProfessionalValidator;
+import com.mercadolibre.consulting.utils.validators.TurnValidator;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
 import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class TurnService {
@@ -74,4 +73,9 @@ public class TurnService {
         return turnModelsProfessional.stream().max((t1,t2)->t1.getF_out().compareTo(t2.getF_out())).get();
     }
 
+    public List<TurnResponseDTO> getAllTurns(String statusStr) throws InvalidTurnStatusException {
+        TurnStatus status = TurnStatus.getEnumOrThrow(statusStr);
+        List<TurnModel> models = turnRepository.findAllByStatus(status);
+        return models.stream().map(model->modelMapper.map(model, TurnResponseDTO.class)).collect(Collectors.toList());
+    }
 }

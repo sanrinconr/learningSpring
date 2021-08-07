@@ -1,5 +1,6 @@
 package com.mercadolibre.consulting.repository;
 
+import com.mercadolibre.consulting.enums.TurnStatus;
 import com.mercadolibre.consulting.model.TurnModel;
 
 import org.springframework.data.mongodb.repository.MongoRepository;
@@ -17,8 +18,9 @@ public interface TurnRepository extends MongoRepository<TurnModel, String> {
     @Query("{status: 'PENDING'}")
     List<TurnModel> findAllPendingTurns();
 
-
     @Query("{$and:[{'professionalModel._id':'100000'},{'status':'PENDING'}]}")
     List<TurnModel> getPendientTurnsOfProfessional(String dniProfessional);
 
+    @Query("{status: ?0}")
+    List<TurnModel> findAllByStatus(TurnStatus status);
 }

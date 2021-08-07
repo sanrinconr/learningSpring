@@ -6,10 +6,8 @@ import com.mercadolibre.consulting.dataGenerators.professional.ProfessionalGener
 import com.mercadolibre.consulting.dataGenerators.turn.TurnsGenerator;
 import com.mercadolibre.consulting.enums.ProfessionalServices;
 import com.mercadolibre.consulting.enums.TurnStatus;
-import com.mercadolibre.consulting.exception.exception.InvalidProfessionalServiceException;
-import com.mercadolibre.consulting.exception.exception.NoProfessionalFoundException;
-import com.mercadolibre.consulting.exception.exception.NotProfessionalServicePassedException;
-import com.mercadolibre.consulting.exception.exception.PatientNotExistsException;
+import com.mercadolibre.consulting.exception.exception.*;
+import com.mercadolibre.consulting.exception.model.ErrorDefaultExceptionModel;
 import com.mercadolibre.consulting.model.PatientModel;
 import com.mercadolibre.consulting.model.ProfessionalModel;
 import com.mercadolibre.consulting.model.TurnModel;
@@ -92,5 +90,29 @@ public class TurnServiceTest {
         Assertions.assertEquals("PENDING",turnResponseDTO.getStatus());
         Assertions.assertEquals("Camila",turnResponseDTO.getProfessional().getName());
 
+    }
+
+    @Test
+    public void getAllTurns() throws InvalidTurnStatusException {
+        ProfessionalModel professionalModel = ProfessionalGenerator.generateOne(ProfessionalServices.GENERAL);
+        List<TurnModel> oldTurns = TurnsGenerator.generateListOldTurnsOfProfessional(professionalModel);
+
+        when(turnRepository.findAllByStatus(any(TurnStatus.class))).thenReturn(oldTurns);
+
+        List<TurnResponseDTO> turns = turnService.getAllTurns("PENDING");
+        Assertions.assertEquals(oldTurns.get(0).getProfessionalModel().getName(), turns.get(0).getProfessional().getName());
+        Assertions.assertEquals(oldTurns.size(), turns.size());
+    }
+    @Test
+    public void getAllTurnsBadStatus() throws InvalidTurnStatusException {
+        ProfessionalModel professionalModel = ProfessionalGenerator.generateOne(ProfessionalServices.GENERAL);
+        List<TurnModel> oldTurns = TurnsGenerator.generateListOldTurnsOfProfessional(professionalModel);
+
+        try{
+            List<TurnResponseDTO> turns = turnService.getAllTurns("BADSTATUS");
+            Assertions.fail();
+        }catch (InvalidTurnStatusException e){
+            Assertions.assertEquals("The turn with status BADSTATUS not exists",e.getMessage());
+        }
     }
 }
