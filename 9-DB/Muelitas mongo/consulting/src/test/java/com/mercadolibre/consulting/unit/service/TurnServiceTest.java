@@ -7,11 +7,9 @@ import com.mercadolibre.consulting.dataGenerators.turn.TurnsGenerator;
 import com.mercadolibre.consulting.enums.ProfessionalServices;
 import com.mercadolibre.consulting.enums.TurnStatus;
 import com.mercadolibre.consulting.exception.exception.*;
-import com.mercadolibre.consulting.exception.model.ErrorDefaultExceptionModel;
 import com.mercadolibre.consulting.model.PatientModel;
 import com.mercadolibre.consulting.model.ProfessionalModel;
 import com.mercadolibre.consulting.model.TurnModel;
-import com.mercadolibre.consulting.repository.PatientRepository;
 import com.mercadolibre.consulting.repository.TurnRepository;
 import com.mercadolibre.consulting.service.PatientService;
 import com.mercadolibre.consulting.service.ProfessionalService;
@@ -24,13 +22,10 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.modelmapper.ModelMapper;
 
-import java.time.LocalDateTime;
-import java.util.ArrayList;
 import java.util.List;
 
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyString;
-import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
@@ -43,7 +38,7 @@ public class TurnServiceTest {
     ProfessionalService professionalService;
 
     TurnService turnService;
-    ModelMapper modelMapper = new ModelMapper();
+    final ModelMapper modelMapper = new ModelMapper();
 
     @BeforeEach
     void initUseCase() {
@@ -108,11 +103,44 @@ public class TurnServiceTest {
         ProfessionalModel professionalModel = ProfessionalGenerator.generateOne(ProfessionalServices.GENERAL);
         List<TurnModel> oldTurns = TurnsGenerator.generateListOldTurnsOfProfessional(professionalModel);
 
-        try{
+        try {
             List<TurnResponseDTO> turns = turnService.getAllTurns("BADSTATUS");
             Assertions.fail();
-        }catch (InvalidTurnStatusException e){
-            Assertions.assertEquals("The turn with status BADSTATUS not exists",e.getMessage());
+        } catch (InvalidTurnStatusException e) {
+            Assertions.assertEquals("The turn with status BADSTATUS not exists", e.getMessage());
+        }
+    }
+
+    @Test
+    public void getAllTurnsOfADoctor() throws NoProfessionalFoundException, InvalidTurnStatusException {
+        ProfessionalModel professional = ProfessionalGenerator.generateOne(ProfessionalServices.GENERAL);
+        List<TurnModel> turns = TurnsGenerator.generateListOldTurnsOfProfessional(professional);
+        when(professionalService.findProfessional(anyString(), anyString())).thenReturn(professional);
+        when(turnRepository.getAllTurnsOfProfessionalStatus(professional.getDni(), "PENDING")).thenReturn(TurnsGenerator.generateListOldTurnsOfProfessional(professional));
+
+        List<TurnResponseDTO> out = turnService.getAllTurnsOfADoctor(professional.getName(), professional.getLast_name(), "PENDING");
+        Assertions.assertEquals(turns.get(0).getProfessionalModel().getName(), out.get(0).getProfessional().getName());
+    }
+
+    @Test
+    public void getAllTurnsOfADoctorBadEntry1() throws NoProfessionalFoundException, InvalidTurnStatusException {
+        ProfessionalModel professional = ProfessionalGenerator.generateOne(ProfessionalServices.GENERAL);
+        try {
+            List<TurnResponseDTO> out = turnService.getAllTurnsOfADoctor(null, professional.getLast_name(), "PENDING");
+            Assertions.fail();
+        } catch (NoProfessionalFoundException e) {
+            Assertions.assertTrue(true);
+        }
+    }
+
+    @Test
+    public void getAllTurnsOfADoctorBadEntry2() throws NoProfessionalFoundException, InvalidTurnStatusException {
+        ProfessionalModel professional = ProfessionalGenerator.generateOne(ProfessionalServices.GENERAL);
+        try {
+            List<TurnResponseDTO> out = turnService.getAllTurnsOfADoctor(professional.getName(), professional.getLast_name(), null);
+            Assertions.fail();
+        } catch (InvalidTurnStatusException e) {
+            Assertions.assertTrue(true);
         }
     }
 }

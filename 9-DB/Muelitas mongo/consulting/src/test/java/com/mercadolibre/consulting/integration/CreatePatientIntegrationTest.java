@@ -1,7 +1,6 @@
 package com.mercadolibre.consulting.integration;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.mercadolibre.consulting.ConsultingApplication;
 import com.mercadolibre.consulting.DTO.patient.request.CreatePatientDTO;
 import com.mercadolibre.consulting.RunAtStart;
 import com.mercadolibre.consulting.exception.model.ErrorAttributesExceptionModel;
@@ -41,6 +40,13 @@ public class CreatePatientIntegrationTest {
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(objectMapper.writeValueAsString(data)))
                 .andExpect(status().isOk());
+    }
+
+    @Test
+    @DisplayName("Integration: Create a patient without content")
+    public void createAPatientWithoutContent() throws Exception {
+        mockMvc.perform(post("/patient"))
+                .andExpect(status().isBadRequest());
     }
 
     @Test

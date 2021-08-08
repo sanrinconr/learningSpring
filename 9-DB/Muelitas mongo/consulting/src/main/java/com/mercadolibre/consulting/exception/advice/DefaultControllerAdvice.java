@@ -1,11 +1,7 @@
 package com.mercadolibre.consulting.exception.advice;
 
-import com.mercadolibre.consulting.exception.exception.InvalidProfessionalServiceException;
-import com.mercadolibre.consulting.exception.exception.NoProfessionalFoundException;
-import com.mercadolibre.consulting.exception.exception.PatientNotExistsException;
 import com.mercadolibre.consulting.exception.model.ErrorAttributesExceptionModel;
 import com.mercadolibre.consulting.exception.model.ErrorDefaultExceptionModel;
-import com.mercadolibre.consulting.exception.model.ErrorServiceExceptionModel;
 import org.springframework.core.Ordered;
 import org.springframework.core.annotation.Order;
 import org.springframework.http.HttpStatus;
@@ -16,12 +12,10 @@ import org.springframework.validation.FieldError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
-import org.springframework.web.method.annotation.MethodArgumentTypeMismatchException;
 
 import java.util.List;
 
 @ControllerAdvice
-@Order(Ordered.LOWEST_PRECEDENCE)
 public class DefaultControllerAdvice {
     @ExceptionHandler(MethodArgumentNotValidException.class)
     public ResponseEntity<ErrorAttributesExceptionModel> argumentNotValid(MethodArgumentNotValidException ex) {

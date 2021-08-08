@@ -5,7 +5,6 @@ import com.mercadolibre.consulting.DTO.patient.request.CreatePatientDTO;
 import com.mercadolibre.consulting.RunAtStart;
 import com.mercadolibre.consulting.dataGenerators.patient.PatientGenerator;
 import com.mercadolibre.consulting.enums.ProfessionalServices;
-import com.mercadolibre.consulting.exception.model.ErrorAttributesExceptionModel;
 import com.mercadolibre.consulting.exception.model.ErrorDefaultExceptionModel;
 import com.mercadolibre.consulting.exception.model.ErrorServiceExceptionModel;
 import org.junit.jupiter.api.Assertions;
@@ -17,13 +16,10 @@ import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.http.MediaType;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.web.servlet.MockMvc;
-import org.springframework.web.bind.annotation.RestController;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @ExtendWith(SpringExtension.class)

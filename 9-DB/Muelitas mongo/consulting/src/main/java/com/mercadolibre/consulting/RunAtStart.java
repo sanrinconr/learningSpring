@@ -10,7 +10,6 @@ import com.mercadolibre.consulting.repository.ProfessionalRepository;
 import com.mercadolibre.consulting.repository.TurnRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;

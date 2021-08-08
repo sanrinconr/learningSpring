@@ -1,6 +1,5 @@
 package com.mercadolibre.consulting.dataGenerators.turn;
 
-import com.mercadolibre.consulting.dataGenerators.professional.ProfessionalGenerator;
 import com.mercadolibre.consulting.enums.TurnStatus;
 import com.mercadolibre.consulting.model.PatientModel;
 import com.mercadolibre.consulting.model.ProfessionalModel;

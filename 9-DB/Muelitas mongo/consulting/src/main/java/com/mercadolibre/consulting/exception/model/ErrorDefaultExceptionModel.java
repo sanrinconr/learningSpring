@@ -5,7 +5,7 @@ import lombok.*;
 @Getter
 @AllArgsConstructor
 public class ErrorDefaultExceptionModel {
-    private String name;
-    private String description;
+    private final String name;
+    private final String description;
 
 }

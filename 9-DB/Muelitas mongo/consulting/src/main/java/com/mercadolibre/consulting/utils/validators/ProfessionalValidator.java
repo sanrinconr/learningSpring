@@ -7,7 +7,7 @@ import java.util.Arrays;
 
 public class ProfessionalValidator {
     public static void serviceIsValidOrThrow(String service) throws InvalidProfessionalServiceException {
-        if(!Arrays.stream(ProfessionalServices.class.getEnumConstants()).anyMatch(e ->e.name().equals(service)))
+        if(Arrays.stream(ProfessionalServices.class.getEnumConstants()).noneMatch(e ->e.name().equals(service)))
             throw new InvalidProfessionalServiceException(service);
     }
 }

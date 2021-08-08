@@ -1,8 +1,6 @@
 package com.mercadolibre.consulting.controller;
 
 import com.mercadolibre.consulting.DTO.patient.request.CreatePatientDTO;
-import com.mercadolibre.consulting.DTO.patient.response.PatientResponseDTO;
-import com.mercadolibre.consulting.exception.exception.PatientNotExistsException;
 import com.mercadolibre.consulting.service.PatientService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

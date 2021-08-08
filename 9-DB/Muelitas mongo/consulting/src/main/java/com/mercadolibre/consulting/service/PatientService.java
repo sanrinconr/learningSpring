@@ -1,7 +1,6 @@
 package com.mercadolibre.consulting.service;
 
 import com.mercadolibre.consulting.DTO.patient.request.CreatePatientDTO;
-import com.mercadolibre.consulting.DTO.patient.response.PatientResponseDTO;
 import com.mercadolibre.consulting.exception.exception.PatientNotExistsException;
 import com.mercadolibre.consulting.model.PatientModel;
 import com.mercadolibre.consulting.repository.PatientRepository;

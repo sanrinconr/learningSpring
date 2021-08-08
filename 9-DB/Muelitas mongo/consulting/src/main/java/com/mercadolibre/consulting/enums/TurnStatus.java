@@ -11,7 +11,8 @@ public enum TurnStatus {
     REPROGRAMMED;
 
     public static TurnStatus getEnumOrThrow(String status) throws InvalidTurnStatusException {
-        if (!Arrays.stream(TurnStatus.class.getEnumConstants()).anyMatch(e -> e.name().equals(status)))
+        if (status == null) throw new InvalidTurnStatusException("UNRECOGNIZED");
+        if (Arrays.stream(TurnStatus.class.getEnumConstants()).noneMatch(e -> e.name().equals(status)))
             throw new InvalidTurnStatusException(status);
         return TurnStatus.valueOf(status);
     }

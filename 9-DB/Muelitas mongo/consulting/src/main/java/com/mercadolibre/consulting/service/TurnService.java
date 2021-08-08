@@ -9,12 +9,11 @@ import com.mercadolibre.consulting.model.ProfessionalModel;
 import com.mercadolibre.consulting.model.TurnModel;
 import com.mercadolibre.consulting.repository.TurnRepository;
 import com.mercadolibre.consulting.utils.validators.ProfessionalValidator;
-import com.mercadolibre.consulting.utils.validators.TurnValidator;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
-import java.util.Arrays;
+import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -39,8 +38,8 @@ public class TurnService {
      *
      * @param patientId dni of the patient
      * @param serviceStr Service that the patient want, only the enum ProfessionalServices is valid
-     * @return
-     * @throws PatientNotExistsException
+     * @return A turn
+     * @throws PatientNotExistsException If patient  not exists
      * @throws InvalidProfessionalServiceException If the service is invalid
      * @throws NoProfessionalFoundException If no one professional have this service
      */
@@ -69,13 +68,22 @@ public class TurnService {
     }
     private TurnModel getLastTurn(String dniProfessional){
         List<TurnModel> turnModelsProfessional = turnRepository.getPendientTurnsOfProfessional(dniProfessional);
-        if(turnModelsProfessional.size() == 0) return null;
-        return turnModelsProfessional.stream().max((t1,t2)->t1.getF_out().compareTo(t2.getF_out())).get();
+        if (turnModelsProfessional.size() == 0) return null;
+        return turnModelsProfessional.stream().max(Comparator.comparing(TurnModel::getF_out)).get();
     }
 
     public List<TurnResponseDTO> getAllTurns(String statusStr) throws InvalidTurnStatusException {
         TurnStatus status = TurnStatus.getEnumOrThrow(statusStr);
         List<TurnModel> models = turnRepository.findAllByStatus(status);
-        return models.stream().map(model->modelMapper.map(model, TurnResponseDTO.class)).collect(Collectors.toList());
+        return models.stream().map(model -> modelMapper.map(model, TurnResponseDTO.class)).collect(Collectors.toList());
+    }
+
+    public List<TurnResponseDTO> getAllTurnsOfADoctor(String name, String last_name, String status) throws NoProfessionalFoundException, InvalidTurnStatusException {
+        if (name == null || last_name == null)
+            throw new NoProfessionalFoundException("Name or last_name of the professional is not passed");
+        TurnStatus turnStatus = TurnStatus.getEnumOrThrow(status);
+        ProfessionalModel professional = professionalService.findProfessional(name, last_name);
+        List<TurnModel> turnModels = turnRepository.getAllTurnsOfProfessionalStatus(professional.getDni(), turnStatus.toString());
+        return turnModels.stream().map(model -> modelMapper.map(model, TurnResponseDTO.class)).collect(Collectors.toList());
     }
 }
